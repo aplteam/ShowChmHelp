@@ -17,17 +17,17 @@
 
     ⎕IO←1 ⋄ ⎕ml←3
 
-    :Include ##.APLTreeUtils
+    :Include APLTreeUtils
 
     ∇ r←Version
       :Access Public shared
-      r←(Last⍕⎕THIS)'1.6.0.2' '2018-02-19'
+      r←(Last⍕⎕THIS)'1.6.1.3' '2019-02-18'
     ∇
 
     ∇ History
       :Access Public shared
-      ⍝ * 1.6.0
-      ⍝   * Converted from the APL wiki to GitHub
+      ⍝ * 1.6.1
+      ⍝   * :Include APLTreeUtils fixed
       ⍝\\
       ⍝ For information regarding older versions see <https://github.com/aplteam/ShowChmHelp/releases>
     ∇
