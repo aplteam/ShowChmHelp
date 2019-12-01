@@ -1,11 +1,11 @@
  R←Test_001(stopFlag batchFlag);path;filename;myHelp;⎕TRAP;h
 ⍝ Run a test file. In batch mode the help file is shown for 5 seconds
- R←∆Failed
+ R←T._Failed
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
 
  myHelp←⎕NEW ##.ShowChmHelp
  path←GetFileRoot
  filename←path,'\','demo.chm'
- →FailsIf ¯1=↑h←myHelp.DisplayHelpfile filename
+ →T.FailsIf ¯1=↑h←myHelp.DisplayHelpfile filename
 
- R←∆OK
+ R←T._OK
