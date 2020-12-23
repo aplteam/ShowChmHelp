@@ -6,6 +6,6 @@
  myHelp←⎕NEW ##.ShowChmHelp
  path←GetFileRoot
  filename←path,'\','demo.chm'
- →T.FailsIf ¯1=↑h←myHelp.DisplayHelpfile filename
+ →T.FailsIf ¯1=⊃h←myHelp.DisplayHelpfile filename
 
  R←T._OK

@@ -6,6 +6,6 @@
  myHelp←⎕NEW ##.ShowChmHelp
  path←GetFileRoot
  filename←path,'\','demo.chm'
- →T.FailsIf ¯1=↑h←myHelp.DisplayTopic filename'Links'
+ →T.FailsIf ¯1=⊃h←myHelp.DisplayTopic filename'Links'
 
  R←T._OK

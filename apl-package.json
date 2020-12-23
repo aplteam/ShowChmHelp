@@ -1,0 +1,1 @@
+{  alias: "",  api: "ShowChmHelp",  assets: "",  date: "2020-09-26",  description: "Display CHM files under program control (Windows only)",  group: "aplteam",  name: "ShowChmHelp",  project_url: "https://github.com/aplteam/ShowChmHelp",  source: "",  tags: "apltree;windows;help;chm",  version: "3.0.0",}

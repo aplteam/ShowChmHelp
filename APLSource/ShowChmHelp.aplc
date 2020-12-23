@@ -17,17 +17,18 @@
 
     ⎕IO←1 ⋄ ⎕ml←3
 
-    :Include APLTreeUtils
-
     ∇ r←Version
       :Access Public shared
-      r←(Last⍕⎕THIS)'2.0.0.5' '2020-03-23'
+      r←'ShowChmHelp' '3.0.0.10' '2020-09-26'
     ∇
 
     ∇ History
       :Access Public shared
-      ⍝ * 2.0.0
-      ⍝   * BREAKING CHANGE: File extension changed from .DYALOG to .APLC
+      ⍝ * 3.0.0
+      ⍝   * BREAKING CHANGES:
+      ⍝     * Requires Dyalog 18.0 or better
+      ⍝   * Does not `:Include APLTreeUtils anymore
+      ⍝   * Release comes as a Tatin package
       ⍝\\
       ⍝ For information regarding older versions see <https://github.com/aplteam/ShowChmHelp/releases>
     ∇
@@ -54,11 +55,7 @@
     ∇
 
     ∇ InitExternalFns dummy
-      'ToLower'⎕NA'I4 USER32.C32|CharLower',('*A'⊃⍨1+12>{⍎⍵↑⍨¯1+⍵⍳'.'}2⊃'.'⎕WG'APLVersion'),' =0T'
-      'ToUpper'⎕NA'I4 USER32.C32|CharUpper',('*A'⊃⍨1+12>{⍎⍵↑⍨¯1+⍵⍳'.'}2⊃'.'⎕WG'APLVersion'),' =0T'
       'GetDesktopWindow'⎕NA'I4 user32.C32∣GetDesktopWindow'
-      '∆FindFirstFile'⎕NA'I4 kernel32.C32|FindFirstFile',('*A'⊃⍨1+12>{⍎⍵↑⍨¯1+⍵⍳'.'}2⊃'.'⎕WG'APLVersion'),' <0T >{I4 {I4 I4} {I4 I4} {I4 I4} {I4 I4} {I4 I4} T[260] T[14]}'
-      '∆FindClose'⎕NA'kernel32.C32|FindClose I4'
       '∆DisplayTopic'⎕NA'I4 hhctrl.ocx.C32∣HtmlHelp',('*A'⊃⍨1+12>{⍎⍵↑⍨¯1+⍵⍳'.'}2⊃'.'⎕WG'APLVersion'),' I <0T[] I I'
       '∆DisplayHelpfile'⎕NA'I4 hhctrl.ocx.C32|HtmlHelp',('*A'⊃⍨1+12>{⍎⍵↑⍨¯1+⍵⍳'.'}2⊃'.'⎕WG'APLVersion'),' I <0T[] I I'
       '∆Quit'⎕NA'I4 hhctrl.ocx.C32|HtmlHelp',('*A'⊃⍨1+12>{⍎⍵↑⍨¯1+⍵⍳'.'}2⊃'.'⎕WG'APLVersion'),' I I I I'
@@ -69,8 +66,8 @@
     ∇ Init Parms;Allowed
       _WindowsDefault←''
       :If IsChar _WindowsDefault
-          _WindowsDefault←Uppercase _WindowsDefault
-          :If ~0∊⍴,_WindowsDefault
+          _WindowsDefault←1 ⎕C _WindowsDefault
+          :If 0≠≢,_WindowsDefault
           :AndIf (⊂_WindowsDefault)∊'DEVELOPMENT' 'DESKTOP'
               6 ⎕SIGNAL⍨'Check parameter "WindowsDefault"!'
           :EndIf
@@ -94,10 +91,10 @@
     ∇ {R}←DisplayHelpfile Filename;handle
       :Access Public Instance
       handle←GetDefaultHandle''
-      :If '.CHM'≢Uppercase ¯4↑Filename
+      :If '.CHM'≢1 ⎕C ¯4↑Filename
           Filename,←'.chm'
       :EndIf
-      :If DoesFileExist Filename
+      :If ⎕NEXISTS Filename
           R←(∆DisplayHelpfile handle Filename HH_.DISPLAY_TOPIC 0)''
       :Else
           R←¯1 'File not found'
@@ -117,7 +114,7 @@
           ⍎cs.{l←⊃,/' ',¨⎕NL-2 ⋄
               ('(',l,')←cs.⍎''',l,'''')}⍬
       :EndIf
-      :If DoesFileExist filename
+      :If ⎕NEXISTS filename
           :If '.HTM'≢¯4↑filename←filename,'::/',topicName
               filename,←'.htm'
           :EndIf
@@ -132,21 +129,6 @@
     ∇
 
 ⍝⍝⍝ Private stuff
-
-    ∇ R←DoesFileExist Filename;Handle;Trash
-      Filename↓⍨←{(-+/∧\(⌽⍵)∊'/\')}Filename
-      :If R←0≠Handle←1⊃FindFirstFile Filename''
-          Trash←∆FindClose Handle
-      :EndIf
-    ∇
-
-      FindFirstFile←{
-          ⎕IO←0
-          ¯1=↑rslt←∆FindFirstFile ⍵:0 ∆GetLastError
-          (1 6⊃rslt)←FindTrim(1 6⊃rslt)        ⍝ shorten the file name at the null delimiter
-          (1 7⊃rslt)←FindTrim(1 7⊃rslt)        ⍝ and for the alternate name
-          rslt
-      }
 
     ∇ R←GetDefaultHandle Type
     ⍝ Type may be "Development" or "Desktop" or empty.
