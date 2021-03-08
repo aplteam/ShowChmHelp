@@ -19,11 +19,13 @@
 
     ∇ r←Version
       :Access Public shared
-      r←'ShowChmHelp' '3.0.0.12' '2020-09-26'
+      r←'ShowChmHelp' '3.0.1+14' '2021-03-02'
     ∇
 
     ∇ History
       :Access Public shared
+      ⍝ * 3.0.1
+      ⍝   * Package config corrected
       ⍝ * 3.0.0
       ⍝   * BREAKING CHANGES:
       ⍝     * Requires Dyalog 18.0 or better
