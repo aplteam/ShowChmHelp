@@ -19,7 +19,7 @@
 
     ∇ r←Version
       :Access Public shared
-      r←'ShowChmHelp' '3.0.1+14' '2021-03-02'
+      r←'ShowChmHelp' '3.0.1+15' '2021-03-02'
     ∇
 
     ∇ History
