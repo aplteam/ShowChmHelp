@@ -19,5 +19,5 @@
   source: "APLSource/ShowChmHelp.aplc",
   tags: "help,chm",
   userCommandScript: "",
-  version: "4.1.0+18",
+  version: "4.1.1+20",
 }

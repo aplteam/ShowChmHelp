@@ -32,6 +32,8 @@
 
     ∇ History
       :Access Public shared
+      ⍝ * 4.1.1
+      ⍝   The Cider config file wrongly defined development dependencies as package dependencies
       ⍝ * 4.1.0
       ⍝   * "Author" and "Homepage" info updated/corrected
       ⍝ * 4.0.0
